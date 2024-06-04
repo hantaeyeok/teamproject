@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.biz.ProductQnaService;
 import com.project.biz.ProductService;
 import com.project.domain.Product;
+import com.project.domain.ProductQna;
 
 @Controller
 @RequestMapping("/product/")
@@ -32,6 +34,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductQnaService productQnaService;
 	
 	@Autowired
 	private ServletContext servletContext;
@@ -60,6 +65,8 @@ public class ProductController {
 	@GetMapping("getProduct.do")
 	public String getProduct(@RequestParam("pno") int pno, Model model) {
 		Product product = productService.getProduct(pno);
+		List<ProductQna> productQnaList = productQnaService.getProductQnaList(pno);
+		model.addAttribute("productQnaList",productQnaList);
 		model.addAttribute("product", product);
 		return "product/getProduct";
 	}

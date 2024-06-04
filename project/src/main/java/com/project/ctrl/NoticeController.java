@@ -148,8 +148,6 @@ public class NoticeController {
         return "redirect:/notice/getNotice.do?nno=" + nno;
     }
     
-    
-    
 
     @GetMapping("delNotice.do")
     public String delNotice(@RequestParam("nno") int nno) {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salesInventoryProductMapper">
+
+    <!-- 매출 및 인벤토리, 제품 정보 조회 -->
+    <select id="getSalesInventoryProductList" resultType="com.project.domain.SalesInventoryProductVO">
+        SELECT * FROM SalesInventoryProductView
+        ORDER BY sales_resdate DESC
+    </select>
+
+    <!-- 매출 통계 조회 -->
+    <select id="getSalesStatistics" resultType="com.project.domain.SalesStatistics">
+        SELECT
+            AVG(tot) AS avg_total_sales,
+            SUM(tot) AS sum_total_sales,
+            COUNT(*) AS total_sales_count
+        FROM sales
+    </select>
+</mapper>

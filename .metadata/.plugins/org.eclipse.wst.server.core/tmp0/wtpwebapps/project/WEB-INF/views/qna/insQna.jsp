@@ -13,9 +13,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
-    <header class="insqna_header"></header>
-    <div class="container">
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
+	<div class="container">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
             <ul>
                 <li><a href="${path}">홈</a></li>
@@ -75,6 +76,8 @@
             </form>
         </div>
     </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

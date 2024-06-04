@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inventoryMapper">
+
+    <select id="getInventoryList" resultType="com.project.domain.Inventory">
+        SELECT ino, pno, pname, iprice, oprice, amount, remark, resdate
+        FROM inventory
+        ORDER BY resdate DESC
+    </select>
+
+    <select id="getInventory" parameterType="int" resultType="com.project.domain.Inventory">
+        SELECT ino, pno, pname, iprice, oprice, amount, remark, resdate
+        FROM inventory
+        WHERE ino = #{ino}
+    </select>
+
+    <insert id="insInventory" parameterType="com.project.domain.Inventory">
+        INSERT INTO inventory (pno, pname, iprice, oprice, amount, remark, resdate)
+        VALUES (#{pno}, #{pname}, #{iprice}, #{oprice}, #{amount}, #{remark}, #{resdate})
+    </insert>
+
+    <update id="upInventory" parameterType="com.project.domain.Inventory">
+        UPDATE inventory
+        SET pname = #{pname}, iprice = #{iprice}, oprice = #{oprice}, amount = #{amount}, remark = #{remark}
+        WHERE ino = #{ino}
+    </update>
+
+    <delete id="delInventory" parameterType="int">
+        DELETE FROM inventory
+        WHERE ino = #{ino}
+    </delete>
+</mapper>

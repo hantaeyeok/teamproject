@@ -4,20 +4,23 @@
 <%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
     <meta charset="UTF-8">
     <title>FAQ List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
+<!-- productQna 토글 사용해서 다시 만들기! -->
     <section class="section">
         <div class="container">
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li><a href="${path}">Home</a></li>
-                    <li><a href="${path}/community">고객지원ㄴ</a></li>
+                    <li><a href="${path}/community">고객지원</a></li>
                     <li class="is-active"><a href="#" aria-current="page">FAQ</a></li>
                 </ul>
             </nav>
@@ -41,6 +44,8 @@
         </div>
         <a href="${path}/faq/insFaq.do">질문등록</a>
     </section>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>       
+</footer>
 </body>
 </html>

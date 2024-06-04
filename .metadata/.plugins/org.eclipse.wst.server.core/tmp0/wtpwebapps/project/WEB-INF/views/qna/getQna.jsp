@@ -10,7 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
     <div class="container">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
             <ul>
@@ -111,6 +113,8 @@
             </c:if>
         </div>
     </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

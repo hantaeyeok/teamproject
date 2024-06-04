@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sales">
+
+    <select id="getSalesList" resultType="com.project.domain.Sales">
+        SELECT sno, pno, amount, tot, id, paymethod, paynum, addr, tel, delcom, deltel, delno, delstatus, st, resdate, gtid, rname
+        FROM sales
+        ORDER BY resdate DESC
+    </select>
+
+    <select id="getSales" parameterType="int" resultType="com.project.domain.Sales">
+        SELECT sno, pno, amount, tot, id, paymethod, paynum, addr, tel, delcom, deltel, delno, delstatus, st, resdate, gtid, rname
+        FROM sales
+        WHERE sno = #{sno}
+    </select>
+
+    <insert id="insSales" parameterType="com.project.domain.Sales">
+        INSERT INTO sales (pno, amount, tot, id, paymethod, paynum, addr, tel, delcom, deltel, delno, delstatus, st, resdate, gtid, rname)
+        VALUES (#{pno}, #{amount}, #{tot}, #{id}, #{paymethod}, #{paynum}, #{addr}, #{tel}, #{delcom}, #{deltel}, #{delno}, #{delstatus}, #{st}, #{resdate}, #{gtid}, #{rname})
+    </insert>
+
+    <update id="upSales" parameterType="com.project.domain.Sales">
+        UPDATE sales
+        SET pno = #{pno}, amount = #{amount}, tot = #{tot}, id = #{id}, paymethod = #{paymethod}, paynum = #{paynum}, addr = #{addr}, tel = #{tel}, delcom = #{delcom}, deltel = #{deltel}, delno = #{delno}, delstatus = #{delstatus}, st = #{st}, resdate = #{resdate}, gtid = #{gtid}, rname = #{rname}
+        WHERE sno = #{sno}
+    </update>
+
+    <delete id="delSales" parameterType="int">
+        DELETE FROM sales
+        WHERE sno = #{sno}
+    </delete>
+</mapper>

@@ -1,0 +1,5 @@
+package com.project.per;
+
+public interface Sales {
+
+}

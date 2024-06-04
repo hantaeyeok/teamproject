@@ -11,7 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
     <div class="container">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
             <ul>
@@ -24,6 +26,7 @@
         <div class="table-container">
             <table class="table is-fullwidth is-striped">
                 <thead>
+                <!-- 아이콘 사용 위치 변경 하려면 아래 빈 td 옮기면 변경가능! -->
                     <tr>
                     	<th>분류</th>
                         <th>글번호</th>
@@ -66,50 +69,10 @@
             </div>
         </div>
     </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</footer>
+<!-- 답글 레벨을 표시하기 위해 FontAwesome 아이콘을 사용  -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-	<!-- 답글 레벨을 표시하기 위해 FontAwesome 아이콘을 사용  -->
 </body>
 </html>
- <!-- 
-                    <c:forEach var="qna" items="${qnaList}">
-                        <tr>
-                            <td>${qna.no}</td>
-                            <td>
-                                <c:forEach var="i" begin="1" end="${qna.plevel}">
-                                    <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                                </c:forEach>
-                                <a href="${path}/qna/getQna.do?no=${qna.no}">${qna.title}</a>
-                            </td>
-                            <td>${qna.content}</td>
-                            <td>${qna.id}</td>
-                            <td>${qna.hits}</td>
-                            <td><fmt:formatDate value="${qna.resdate}" pattern="yyyy-MM-dd"/></td>
-                        </tr>
-                    </c:forEach>
-                  -->
-                  <!-- 
-                   <c:forEach var="qna" items="${qnaList}">
-                    <tr class="${qna.parno != 0 ? 'nested' : ''}">
-                        <td>${qna.no}</td>
-                        <td><a href="${path}/qna/getQna.do?no=${qna.no}">${qna.title}</a></td>
-                        <td>${qna.id}</td>
-                        <td>${qna.hits}</td>
-                        <td><fmt:formatDate value="${qna.resdate}" pattern="yyyy-MM-dd"/></td>
-                    </tr>
-                </c:forEach>
-                -->
-                <!-- 
-                 <c:if test="${qna.parno == 0}">
-                        <c:forEach var="answer" items="${qnaList}">
-                            <c:if test="${answer.parno == qna.no}">
-                                <div class="box" style="margin-left: 20px;">
-                                    <h4 class="title is-5">답변: ${answer.title}</h4>
-                                    <p>작성자: ${answer.id}</p>
-                                    <p>작성일: <fmt:formatDate value="${answer.resdate}" pattern="yyyy년 MM월 dd일"/></p>
-                                    <p>내용: ${answer.content}</p>
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                     -->

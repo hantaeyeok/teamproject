@@ -19,6 +19,7 @@
     </style>
     <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
     <script>
+    	//다음 카카오 api
         function findPostcode() {
             new daum.Postcode({
                 oncomplete: function(data) {
@@ -28,6 +29,7 @@
             }).open();
         }
         
+    	//passwords 일치여부
         function equalPasswords(){
             var pw = document.getElementById('pw').value;
             var pw1 = document.getElementById('pw1').value;
@@ -38,6 +40,7 @@
             return true;
         }
         
+    	//id사용가능 여부 
         function checkId() {
             var id = document.getElementById('id').value;
             if (id === "") {
@@ -45,6 +48,10 @@
                 return false;
             }
             
+          	//xmlHttpRequest : 서버와 통신을 하도록 하는 객체
+          	//객체는 서버와 상호작용하며, 페이지 새로고침을 하지 않아도 url을 통해 데이틀 전송, 받아 올수 있음.
+          	//브라우저에서 제공하는 api
+          	//다시 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "${path}/member/idCheck.do", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -60,6 +67,38 @@
             };
             xhr.send("id=" + id);
         }
+    	
+    	//이걸로도 가능 memberController에서 각주 확인,
+        function checkId1() {
+            var id = document.getElementById('id').value;
+            if (id === "") {
+                alert("아이디를 입력해주세요.");
+                return false;
+            }
+            
+            var params = { id:$("#id").val() };
+			
+			$.ajax({
+				url:"${path}/idCheck.do",
+				type:"post",
+				dataType:"json",
+				data:params,
+				success:function (data){
+					var idCk = data.result;
+					if(idCk==false){
+						$("#idCheck").val("true");
+						$("#msg1").html("<strong>사용 가능한 아이디입니다.</strong>");
+					} else {
+						$("#idCheck").val("false");
+						$("#msg1").html("<strong style='color:red'>사용 불가능한 아이디입니다.</strong>");
+					}
+				}
+			});
+        
+        }
+    	
+    	
+    	
     </script>
 </head>
 <body>

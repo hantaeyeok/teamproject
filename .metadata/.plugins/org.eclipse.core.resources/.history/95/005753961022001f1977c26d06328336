@@ -1,0 +1,10 @@
+package com.project.biz;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class ProductQnaServiceImpl implements ProductQnaService{
+	
+	@Autowired
+	private ProdcutQnaDAO productqnaDAO;
+	
+}

@@ -17,12 +17,9 @@
 	
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/data/**" location="/data/" />
-	
 	<resources mapping="/admin/**" location="/WEB-INF/views/admin" />
 	<resources mapping="/include/**" location="/WEB-INF/views/include" />
-	
 	<resources mapping="/notice/**" location="/WEB-INF/views/notice" />
-	
 	<resources mapping="/inventory/**" location="/WEB-INF/views/inventory" />
 	<resources mapping="/member/**" location="/WEB-INF/views/member" />
 	<resources mapping="/product/**" location="/WEB-INF/views/product/" />
@@ -34,7 +31,10 @@
 	<resources mapping="/util/**" location="/WEB-INF/views/util" />
 	<resources mapping="/api/**" location="/WEB-INF/views/api" />
 	<resources mapping="/ajax/**" location="/WEB-INF/views/ajax" />
-<resources mapping="/fileupload/**" location="/WEB-INF/views/fileupload" />
+	<resources mapping="/fileupload/**" location="/WEB-INF/views/fileupload" />
+	<resources mapping="/sales/**" location="/WEB-INF/views/sales" />
+	<resources mapping="/faq/**" location="/WEB-INF/views/fqa" />
+	<resources mapping="/productQna/**" location="/WEB-INF/views/productQna" />
 	
 	<resources mapping="/delivery/**" location="/WEB-INF/views/delivery" />
 	<resources mapping="/resources/**" location="/WEB-INF/views/resources" />

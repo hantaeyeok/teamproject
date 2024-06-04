@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductQna {
-//	private int pno;	//상품 pno= Qna pno
+	private int pno;	//상품 pno= Qna pno 외래키.
 	private String qcate;
 	private int no;
 	private String title;
 	private String content;
-	private int hits;
 	private Date resdate;
+	private int hits;
 	private String id;
 	private String name;
 	private String mcate;	//member의 등급이 cate일때 답변을 달거나 수정 및 삭제를 할 수 있도록 기능구현하기 위해 cate사용

@@ -14,18 +14,28 @@
 <header>
 	<jsp:include page="include/header.jsp"></jsp:include>
 </header>
-
-<h1>
-	Hello world!  
-</h1>
-<p> <a href="${path}/qna/qnaList.do">qnaList</a></p>
-<p> <a href="${path}/product/productList.do">productList</a></p>
-
-<!-- 
-<p> <a href="${path}/exproduct/exproductList.do">exproductList</a></p> -->
-<P>  The time on the server is ${serverTime}. </P>
-
-
+	<section>
+		<h1> !List 바로가기! </h1>
+		<h3> <a href="${path}/qna/qnaList.do">qnaList</a> </h3>
+		
+		<h3> <a href="${path}/fqq/faqList.do">faqList</a> </h3>
+		
+		<h3> <a href="${path}/product/productList.do">productList</a> </h3>
+		
+		<h3> <a href="${path}/inventory/getInventoryList.do">getInventoryList</a> </h3>
+		
+		<h3> <a href="${path}/sales/getSalesList.do">getInventoryList</a> </h3>
+		<input type="hidden" name="mcode" value="${member.mcode}"/>
+		<p> mcode: ${sessoin.mcode} </p>
+		<p> mcode: ${mcode} </p>
+		<p> mcode: ${member.mcode} </p>
+		<p> mcode: ${member.getMcode()} </p>
+		<p> mcode: ${member.getMcode()} </p>
+		
+		<h3> <a href="${path}/sales/getSalesList.do">getInventoryList</a> </h3>
+		<h3> <a href="${path}/sales/getSalesList.do">getInventoryList</a> </h3>
+		<h3> <a href="${path}/sales/getSalesList.do">getInventoryList</a> </h3>
+	</section>
 <footer>
 	<jsp:include page="include/footer.jsp"></jsp:include>
 </footer>

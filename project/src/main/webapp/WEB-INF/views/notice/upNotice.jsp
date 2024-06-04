@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -12,7 +11,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
     <div class="container">
         <div class="breadcrumb">
             <p><a href="${path}">홈</a> <a href="${path}/community">커뮤니티</a> <span>공지사항</span></p>
@@ -69,6 +70,8 @@
             </form>
         </div>
     </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

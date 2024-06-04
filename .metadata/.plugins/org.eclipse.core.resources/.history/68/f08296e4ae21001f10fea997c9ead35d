@@ -1,0 +1,39 @@
+package com.project.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SalesInventoryProductVO {
+    private int sno;
+    private int pno;
+    private int amount;
+    private int tot;
+    private String id;
+    private String paymethod;
+    private String paynum;
+    private String addr;
+    private String tel;
+    private String delcom;
+    private String deltel;
+    private String delno;
+    private String delstatus;
+    private String st;
+    private String salesResdate;
+    private String gtid;
+    private String rname;
+    private int ino;
+    private String pname;
+    private int iprice;
+    private int oprice;
+    private int inventoryAmount;
+    private String remark;
+    private String inventoryResdate;
+    private String productName;
+    private int productPrice;
+    private double avgTotalSales;
+    private int sumTotalSales;
+}

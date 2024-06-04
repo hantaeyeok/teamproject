@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+<header>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</header>
     <section class="section">
         <div class="container">
             <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -25,13 +27,13 @@
             <form action="${path}/faq/upFaq.do" method="post">
                 <input type="hidden" name="fno" value="${faq.fno}" />
                 <div class="field">
-                    <label class="label">Title</label>
+                    <label class="label">제목 : </label>
                     <div class="control">
                         <input class="input" type="text" name="ftitle" value="${faq.ftitle}" required />
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Content</label>
+                    <label class="label">내용 : </label>
                     <div class="control">
                         <textarea class="textarea" name="fcontent" required>${faq.fcontent}</textarea>
                     </div>
@@ -40,9 +42,11 @@
                     <button class="button is-link" type="submit">Update</button>
                 </div>
             </form>
-            <a href="${path}/faq/faqList.do" class="button is-link">Back to FAQ List</a>
+            <a href="${path}/faq/faqList.do" class="button is-link">돌아가기</a>
         </div>
     </section>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ import com.project.domain.Member;
 @RequestMapping("/member/")
 public class MemberController {
 
+	private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+
+	
     @Autowired
     private MemberService memberService;
 
@@ -34,7 +39,8 @@ public class MemberController {
     private HttpSession session;
     
     @GetMapping("login.do")
-    public String login(Model model) {
+    public String login(Model model,Member member) {
+    	model.addAttribute("Member",member);
         return "member/login";
     }
 
@@ -62,17 +68,19 @@ public class MemberController {
             session.setAttribute("sid", id);
             session.setAttribute("sname", member.getName());
             session.setAttribute("smember", member);
+            session.setAttribute("mcode", mcode);
             
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>");
-            out.println("window.opener.postMessage({ sid: '" + id + "' }, 'http://localhost:8091');");
+            out.println("window.opener.postMessage({ sid: '" + id + "' }, 'http://localhost:8091');");	//여기 다시,
             out.println("window.close();");
             out.println("</script>");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    
     }
 
     @GetMapping("join.do")
@@ -92,7 +100,7 @@ public class MemberController {
             String postcode = request.getParameter("postcode");
             String addr = request.getParameter("addr1") + " " + request.getParameter("addr2");
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//date 받아오는 방법 몰라서 찾아서 작성 변경가능함.	String으로 받은 값을 date로 변환하기 위해,
             Date birth = dateFormat.parse(birthString);
             
             Date regdate = new Date();
@@ -159,11 +167,5 @@ public class MemberController {
         rttr.addAttribute("msg", "회원 약관에 동의하시기 바랍니다.");
         return "member/agree";
     }
-	@RequestMapping("agree2.do")
-    public String showagree2() {
-        return "member/agree2";
-    }
-    
-	
-	
+
 }
