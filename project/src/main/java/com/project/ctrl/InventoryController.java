@@ -1,5 +1,6 @@
 package com.project.ctrl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.project.domain.Inventory;
 @RequestMapping("/inventory/")
 public class InventoryController {
 	
+	//Inventory 상세보기는 사용하지 않아도 됨. update까지 구현 del은 트리거사용으로 상품하고 연관지어야함.
 	
 	@Autowired
     private InventoryService inventoryService;
@@ -44,12 +46,9 @@ public class InventoryController {
 
     @PostMapping("saveInventory.do")
     public String saveInventory(@ModelAttribute Inventory inventory) {
-        if (inventory.getIno() == 0) {
-            inventoryService.insInventory(inventory);
-        } else {
-            inventoryService.upInventory(inventory);
-        }
-        return "redirect:/inventory/getInventoryList";
+       inventory.setResdate(new Date());
+       inventoryService.upInventory(inventory);
+       return "redirect:/inventory/getInventoryList.do";
     }
 
     @GetMapping("upInventory.do")

@@ -128,7 +128,11 @@
 	     </div>
 	     <button type="submit" class="button is-link">장바구니추가</button>
 	</form>
-	<a href="${path}/">구매하기</a>
+	<form action="${path}/sales/buySalesList.do" method="post" id="purchaseForm">
+        <input type="hidden" name="productPno" value="${product.pno}">
+        <input type="hidden" name="quantity" value="1"> <!-- 기본 수량 1로 설정 -->
+        <button type="submit" class="button is-primary">구매하기</button>
+    </form>
 </section>
 
 <footer>

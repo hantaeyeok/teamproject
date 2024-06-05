@@ -68,7 +68,7 @@ public class MemberController {
             session.setAttribute("sid", id);
             session.setAttribute("sname", member.getName());
             session.setAttribute("smember", member);
-            session.setAttribute("mcode", mcode);
+            
             
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();

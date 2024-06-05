@@ -17,7 +17,7 @@
 <section class="section">
     <div class="container">
         <h1 class="title">장바구니</h1>
-        <!-- 수량 변경가능하게 다시 만들기! -->
+        <!-- 수량 변경 가능하게 다시 만들기! -->
         <div class="box">
             <c:if test="${not empty basket}">
                 <table class="table is-fullwidth">
@@ -35,7 +35,22 @@
                             <tr>
                                 <td>${item.product.pname}</td>
                                 <td><fmt:formatNumber value="${item.product.price}" type="currency"/></td>
-                                <td>${item.quantity}</td>
+                                <td>
+                                    <div class="field has-addons">
+                                        <form action="${path}/basket/updateBasket.do" method="post" id="update-form-${item.product.pno}">
+                                            <input type="hidden" name="productPno" value="${item.product.pno}">
+                                            <div class="control">
+                                                <button type="button" class="button is-info" onclick="changeQuantity(${item.product.pno}, -1)">-</button>
+                                            </div>
+                                            <div class="control">
+                                                <input type="number" name="quantity" value="${item.quantity}" class="input" readonly>
+                                            </div>
+                                            <div class="control">
+                                                <button type="button" class="button is-info" onclick="changeQuantity(${item.product.pno}, 1)">+</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
                                 <td><fmt:formatNumber value="${item.product.price * item.quantity}" type="currency"/></td>
                                 <td>
                                     <form action="${path}/basket/removeBasket.do" method="post">
@@ -49,7 +64,7 @@
                 </table>
                 
                 <div class="buttons is-right">
-                    <a href="${path}/주문?" class="button is-primary">주문하기</a>
+                    <a href="${path}/sales/buySalesList.do" class="button is-primary">주문하기</a>
                 </div>
             </c:if>
             
@@ -64,5 +79,15 @@
 <footer>
     <jsp:include page="../include/footer.jsp"></jsp:include>
 </footer>
+<script>
+function changeQuantity(productPno, delta) {
+    const form = document.getElementById(`update-form-${productPno}`);
+    const quantityInput = form.querySelector('input[name="quantity"]');
+    let newQuantity = parseInt(quantityInput.value) + delta;
+    if (newQuantity < 1) newQuantity = 1;
+    quantityInput.value = newQuantity;
+    form.submit();
+}
+</script>
 </body>
 </html>

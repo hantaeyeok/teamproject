@@ -19,7 +19,7 @@ import com.project.domain.Product;
 
 @Controller
 @RequestMapping("/basket/")
-public class Basketconroller {
+public class BasketConroller {
 	
 	@Autowired
 	private ProductService productService;
@@ -50,18 +50,56 @@ public class Basketconroller {
 	    
 	    return "redirect:/basket/basketList.do";
 	}
+	
 	@PostMapping("removeBasket.do")
-	public String removeFromBasket(
-			@RequestParam("productPno") int productPno, 
-			HttpSession session) {
-	    List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
-	    if (basket != null) {
-	        basket.removeIf(item -> item.getProduct().getPno() == productPno);
-	        session.setAttribute("basket", basket);
-	        //여기 다시,,..,
+    public String removeFromBasket(
+            @RequestParam("productPno") int productPno, 
+            HttpSession session) {
+        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
+        
+        //gpt님한테 물어봄..
+        if (basket != null) {
+            // 한 항목만 삭제
+            for (int i = 0; i < basket.size(); i++) {
+                if (basket.get(i).getProduct().getPno() == productPno) {
+                    basket.remove(i);
+                    break;
+                }
+            }
+            session.setAttribute("basket", basket);
+        }
+        return "redirect:/basket/basketList.do";
+    }
+	
+	 @PostMapping("updateBasket.do")
+	    public String updateBasket(
+	            @RequestParam("productPno") int productPno, 
+	            @RequestParam("quantity") int quantity, 
+	            HttpSession session) {
+	        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
+	        if (basket != null) {
+	            for (BasketItem item : basket) {
+	                if (item.getProduct().getPno() == productPno) {
+	                    item.setQuantity(quantity);
+	                    break;
+	                }
+	            }
+	            session.setAttribute("basket", basket);
+	        }
+	        return "redirect:/basket/basketList.do";
 	    }
-	    return "redirect:/basket/basketList.do";
-	}
+//	@PostMapping("removeBasket.do")
+//	public String removeFromBasket(
+//			@RequestParam("productPno") int productPno, 
+//			HttpSession session) {
+//	    List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
+//	    if (basket != null) {
+//	        basket.removeIf(item -> item.getProduct().getPno() == productPno);
+//	        session.setAttribute("basket", basket);
+//	        //여기 다시,,..,
+//	    }
+//	    return "redirect:/basket/basketList.do";
+//	}
 }
 /*
 basket.removeIf(item -> item.getProduct().getPno() == productPno)는 람다 표현식을 사용한 Java 코드입니다. 이 구문은 장바구니 목록에서 특정 조건을 만족하는 항목을 제거하는 데 사용됩니다. 

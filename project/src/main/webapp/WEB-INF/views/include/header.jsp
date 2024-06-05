@@ -23,13 +23,13 @@
                 document.getElementById('logoutButton').style.display = 'none';
                 document.getElementById('signupButton').style.display = 'block';
             }
-            
         }
-        window.onload = checkLogin;
-
         
-        //header 새창 관련 함수
-        //새창 띄우기 다시 확인하기 : 찾아서 함 해보고싶어서..
+        window.onload = function() {
+            checkLogin();
+            updateCartCount();
+        };
+
         function openLoginWindow() {
             var loginWindow = window.open("${hpath}/member/login.do", "Login", "width=600,height=600");
             window.addEventListener("message", receiveMessage, false);
@@ -47,13 +47,22 @@
             }
         }
 
-        //로그아웃 함수
         function logout() {
             sessionStorage.removeItem('sid');
             checkLogin();
             window.location.href = '${hpath}/member/logout.do';
         }
+
+        function updateCartCount() {
+            var cartCountElement = document.getElementById('cart-count');
+            var basket = JSON.parse(sessionStorage.getItem('basket')) || [];
+            cartCountElement.textContent = basket.length;
+        }
         
+        function syncBasketWithSession(sessionBasket) {
+            sessionStorage.setItem('basket', JSON.stringify(sessionBasket));
+            updateCartCount();
+        }
     </script>
     <style>
         .navbar-dropdown {
@@ -98,7 +107,6 @@
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=watch">스마트워치</a>
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=earphone">이어폰</a>
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=new">신상품</a>
-                        
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -112,15 +120,10 @@
                     </div>
                 </div>
                 <a class="navbar-item" href="${hpath}/purchase">구매하기</a>
-         
-                
-                
                 
                 <c:choose>
                     <c:when test="${not empty sessionScope.sid}">	
-                   	 
                         <a class="navbar-item" id="memberPageLink" href="${hpath}/member/memberPage.do">마이페이지</a>
-                     
                         <c:if test="${sessionScope.sid == 'admin'}">
                             <a class="navbar-item" id="adminPageLink" href="${hpath}/admin/adminHome.do">관리자페이지</a>
                         </c:if>
@@ -131,38 +134,16 @@
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-light" id="loginButton" onclick="openLoginWindow()">로그인</a>
-                        
                         <a class="button is-danger" id="logoutButton" onclick="logout()" style="display: none;">로그아웃</a>
                         <a class="button is-primary" id="signupButton" href="${hpath}/member/join.do">회원가입</a>
-                    	<a href="${hpath}/basket/basketList.do" class="button is-light">
+                        <a href="${hpath}/basket/basketList.do" class="button is-light">
                             장바구니
                             <span id="cart-count" class="cart-count">0</span>
                         </a>
                     </div>
-                     
                 </div>
             </div>
         </div>
     </nav>
-    <script>
-    //장바구니 카운트함수 두번째 함수 실행안됨 사유 찾기, 
-	    function updateCartCount() {
-	        var cartCountElement = document.getElementById('cart-count');
-	        var basket = JSON.parse(sessionStorage.getItem('basket')) || [];
-	        cartCountElement.textContent = basket.length;
-	    }
-	    
-	    function syncBasketWithSession(sessionBasket) {
-	        sessionStorage.setItem('basket', JSON.stringify(sessionBasket));
-	        updateCartCount();
-	    }
-	    
-	    
-	    window.onload = function() {
-            checkLogin();
-            updateCartCount();
-        };
-    
-    </script>
 </body>
 </html>

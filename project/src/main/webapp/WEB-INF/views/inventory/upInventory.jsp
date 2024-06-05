@@ -16,31 +16,31 @@
         <form action="${path}/inventory/saveInventory.do" method="post">
             <input type="hidden" name="ino" value="${inventory.ino}">
             <div class="field">
-                <label class="label">Product Name</label>
+                <label class="label">Product Name(제품명)</label>
                 <div class="control">
                     <input class="input" type="text" name="pname" value="${inventory.pname}" required>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Initial Price</label>
+                <label class="label">Initial Price(입고가격)</label>
                 <div class="control">
                     <input class="input" type="number" name="iprice" value="${inventory.iprice}" required>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Original Price</label>
+                <label class="label">Out Price(출고가격)</label>
                 <div class="control">
                     <input class="input" type="number" name="oprice" value="${inventory.oprice}" required>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Amount</label>
+                <label class="label">Amount(수량)</label>
                 <div class="control">
                     <input class="input" type="number" name="amount" value="${inventory.amount}" required>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Remark</label>
+                <label class="label">Remark(비고)</label>
                 <div class="control">
                     <input class="input" type="text" name="remark" value="${inventory.remark}">
                 </div>
