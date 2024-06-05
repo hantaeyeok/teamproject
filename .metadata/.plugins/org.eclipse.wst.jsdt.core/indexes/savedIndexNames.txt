@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+D:\hty\teamProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-4053918718.index
-3546471927.index
-205803682.index
-3080583107.index
-1610850301.index
-2943033792.index
-3581163120.index

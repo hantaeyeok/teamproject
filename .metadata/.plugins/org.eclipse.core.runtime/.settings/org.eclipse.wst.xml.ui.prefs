@@ -1,4 +1,0 @@
-eclipse.preferences.version=1
-newFileTemplateName=xml declaration
-org.eclipse.wst.sse.ui.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="true" context\="xml_new" deleted\="false" description\="Beans XML" enabled\="true" name\="beans_basic">&lt;?xml version\="1.0" encoding\="UTF-8"?&gt;&\#13;\r\n&lt;beans xmlns\="http\://www.springframework.org/schema/beans"&\#13;\r\n       xmlns\:xsi\="http\://www.w3.org/2001/XMLSchema-instance"&\#13;\r\n       xsi\:schemaLocation\="http\://www.springframework.org/schema/beans http\://www.springframework.org/schema/beans/spring-beans.xsd"&gt;&\#13;\r\n&\#13;\r\n&lt;/beans&gt;</template></templates>
-org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart.lastActivePage=1
