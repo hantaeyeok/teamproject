@@ -20,8 +20,18 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public Member getMember(String id) {
-		return sqlSession.selectOne("member.getMember",id);
+	public Member getIdMember(String id) {
+		return sqlSession.selectOne("member.getIdMember",id);
+	}
+	
+	@Override
+	public Member getMcodeMember(int mcode) {
+		return sqlSession.selectOne("member.getMcodeMember",mcode);
+	}
+	
+	@Override
+	public Member getAbleMember(String able) {
+		return sqlSession.selectOne("member.getAbleMember",able);
 	}
 
 	@Override
@@ -31,8 +41,22 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public void upMember(Member member) {
-		sqlSession.update("member.upMember",member);
-		
+		sqlSession.update("member.upMember",member);	
+	}
+	
+	@Override
+	public void upPw(Member member) {
+		sqlSession.update("member.upPw", member);
+	}
+	
+	@Override
+	public void upMcode(Member member) {
+		sqlSession.update("member.upMcode", member);
+	}
+	
+	@Override
+	public void upAble(Member member) {
+		sqlSession.update("member.upAble", member);
 	}
 
 	@Override

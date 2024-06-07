@@ -63,6 +63,6 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>loginCheckFilter</filter-name>
-		<url-pattern>/sales/*</url-pattern>
+		<url-pattern>/sales/insSales.do/</url-pattern>
 	</filter-mapping>
 </web-app>

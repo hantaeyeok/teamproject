@@ -11,20 +11,34 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <style>
         .login-form {
-            width: 300px;
+            width: 400px;
             margin: 100px auto;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        .is-grouped .control {
+        	display: flex;
+            margin: 0 auto;
+        }
     </style>
     <script>
+    	//로그인 성공 시
         function loginSuccess(sid) {
             window.opener.postMessage({ sid: sid }, "http://localhost:8091");
             window.close();
         }
         
+        //취소 버튼 클릭 시
         function cancel() {
-            window.close(); // 창 닫기
+            window.close(); //창 닫기
+        }
+        
+        //회원가입 버튼 클릭 시
+        function signUp() {
+        	if (window.opener) {
+                window.opener.location.href = "${path}/member/agree.do";
+                window.close(); // 현재 로그인 창을 닫습니다.
+            }
         }
     </script>
 </head>
@@ -54,10 +68,18 @@
                     <div class="control">
                         <button type="reset" class="button is-link is-light" onclick="cancel()">취소</button>
                     </div>
+                </div>
+                
+                <div class="field is-grouped">
                     <div class="control">
-                        <button type="reset" class="button is-link is-light" onclick="cancel()">비밀번호찾기</button>
+                        <button type="button" class="button is-link is-light" onclick="cancel()">아이디 찾기</button>
                     </div>
-                    
+                    <div class="control">
+                        <button type="button" class="button is-link is-light" onclick="cancel()">비밀번호 찾기</button>
+                    </div>
+                    <div class="control">
+                        <button type="button" class="button is-link is-light" onclick="signUp()">회원가입</button>
+                    </div>
                 </div>
             </form>
         </div>

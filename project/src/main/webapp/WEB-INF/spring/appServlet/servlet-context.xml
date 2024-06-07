@@ -35,6 +35,7 @@
 	<resources mapping="/sales/**" location="/WEB-INF/views/sales" />
 	<resources mapping="/faq/**" location="/WEB-INF/views/fqa" />
 	<resources mapping="/productQna/**" location="/WEB-INF/views/productQna" />
+	<resources mapping="/basket/**" location="/WEB-INF/views/basket" />
 	
 	<resources mapping="/delivery/**" location="/WEB-INF/views/delivery" />
 	<resources mapping="/resources/**" location="/WEB-INF/views/resources" />

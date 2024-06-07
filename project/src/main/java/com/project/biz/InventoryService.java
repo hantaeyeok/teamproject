@@ -10,4 +10,5 @@ public interface InventoryService {
 	void insInventory(Inventory inventory);
 	void upInventory(Inventory inventory);
 	void delInventory(int ino);
+	Inventory getInventoryPno(int pno); 
 }

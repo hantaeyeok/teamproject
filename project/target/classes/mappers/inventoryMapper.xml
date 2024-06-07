@@ -30,4 +30,10 @@
         DELETE FROM inventory
         WHERE ino = #{ino}
     </delete>
+    
+     <select id="getInventoryPno" parameterType="int" resultType="com.project.domain.Inventory">
+        SELECT ino, pno, pname, iprice, oprice, amount, remark, resdate
+        FROM inventory
+        WHERE pno = #{pno}
+    </select>
 </mapper>

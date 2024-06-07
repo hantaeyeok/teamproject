@@ -12,57 +12,53 @@
     <link rel="stylesheet" href="${hpath}/resources/css/common.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script>
-        function checkLogin() {
-            var sid = sessionStorage.getItem('sid');
-            if (sid) {
-                document.getElementById('loginButton').style.display = 'none';
-                document.getElementById('logoutButton').style.display = 'block';
-                document.getElementById('signupButton').style.display = 'none';
-            } else {
-                document.getElementById('loginButton').style.display = 'block';
-                document.getElementById('logoutButton').style.display = 'none';
-                document.getElementById('signupButton').style.display = 'block';
-            }
-        }
-        
-        window.onload = function() {
-            checkLogin();
-            updateCartCount();
-        };
+    
+     
+	//header 새창 관련 함수
+	  function openLoginWindow() {
+	      var loginWindow = window.open("${hpath}/member/login.do", "Login", "width=900,height=600");
+	      window.addEventListener("message", receiveMessage, false);
+	
+	      function receiveMessage(event) {
+	          if (event.origin !== "http://localhost:8091") {
+	              return;
+	          }
+	          sessionStorage.setItem('sid', event.data.sid);
+	          
+	          if (loginWindow) {
+	              loginWindow.close();
+	          }
+	          window.location.reload();
+	      }
+	  }
 
-        function openLoginWindow() {
-            var loginWindow = window.open("${hpath}/member/login.do", "Login", "width=600,height=600");
-            window.addEventListener("message", receiveMessage, false);
-
-            function receiveMessage(event) {
-                if (event.origin !== "http://localhost:8091") {
-                    return;
-                }
-                sessionStorage.setItem('sid', event.data.sid);
-                checkLogin();
-                if (loginWindow) {
-                    loginWindow.close();
-                }
-                window.location.reload();
-            }
-        }
-
-        function logout() {
-            sessionStorage.removeItem('sid');
-            checkLogin();
-            window.location.href = '${hpath}/member/logout.do';
-        }
-
-        function updateCartCount() {
-            var cartCountElement = document.getElementById('cart-count');
-            var basket = JSON.parse(sessionStorage.getItem('basket')) || [];
-            cartCountElement.textContent = basket.length;
-        }
-        
-        function syncBasketWithSession(sessionBasket) {
-            sessionStorage.setItem('basket', JSON.stringify(sessionBasket));
-            updateCartCount();
-        }
+	//로그아웃 함수
+	function logout() {
+	    sessionStorage.removeItem('sid');
+	    window.location.href = '${hpath}/member/logout.do';
+	}
+	
+	//장바구니 숫자 올라가는 함수
+	function updateCartCount() {
+	    var cartCountElement = document.getElementById('cart-count');
+	    var basket = JSON.parse(sessionStorage.getItem('basket')) || [];
+	    cartCountElement.textContent = basket.length;
+	}
+	
+	//장바구니 데이터 임시 저장하는 함후 
+	function syncBasketWithSession() {
+	    fetch("${hpath}/basket/syncBasket.do")
+	        .then(response => response.json())
+	        .then(data => {
+	            sessionStorage.setItem('basket', JSON.stringify(data));
+	            updateCartCount();
+	        });
+	}
+	
+	window.onload = function() {
+	    updateCartCount();
+	    syncBasketWithSession();
+	};
     </script>
     <style>
         .navbar-dropdown {
@@ -107,6 +103,7 @@
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=watch">스마트워치</a>
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=earphone">이어폰</a>
                         <a class="navbar-item" href="${hpath}/product/getProductCateList.do?pcate=new">신상품</a>
+                        
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -116,15 +113,15 @@
                         <a class="navbar-item" href="${hpath}/faq/faqList.do">FAQ</a>
                         <a class="navbar-item" href="${hpath}/qna/qnaList.do">QNA</a>
                         <a class="navbar-item" href="${hpath}/as/as.do">A/S</a>
-                        <a class="navbar-item" href="${hpath}/free/freeList.do">제품등록</a>  
+                        <a class="navbar-item" href="${hpath}/free/freeList.do">제품등록</a>
+                        
                     </div>
                 </div>
                 <a class="navbar-item" href="${hpath}/purchase">구매하기</a>
-                
                 <c:choose>
-                    <c:when test="${not empty sessionScope.sid}">	
-                        <a class="navbar-item" id="memberPageLink" href="${hpath}/member/memberPage.do">마이페이지</a>
-                        <c:if test="${sessionScope.sid == 'admin'}">
+                    <c:when test="${not empty sessionScope.sid}">
+                        <a class="navbar-item" id="memberPageLink" href="${hpath}/member/myInfo.do">마이페이지</a>
+                        <c:if test="${sessionScope.smcode!=2}">
                             <a class="navbar-item" id="adminPageLink" href="${hpath}/admin/adminHome.do">관리자페이지</a>
                         </c:if>
                     </c:when>
@@ -133,14 +130,18 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light" id="loginButton" onclick="openLoginWindow()">로그인</a>
-                        <a class="button is-danger" id="logoutButton" onclick="logout()" style="display: none;">로그아웃</a>
-                        <a class="button is-primary" id="signupButton" href="${hpath}/member/join.do">회원가입</a>
-                        <a href="${hpath}/basket/basketList.do" class="button is-light">
+                    	<c:if test="${empty sessionScope.sid }">
+	                        <a class="button is-light" id="loginButton" onclick="openLoginWindow()">로그인</a>
+	                        <a class="button is-primary" id="signupButton" href="${hpath}/member/agree.do">회원가입</a>
+                        </c:if>
+                        <c:if test="${not empty sessionScope.sid }">
+                        	<a class="button is-danger" id="logoutButton" onclick="logout()">로그아웃</a>
+                        </c:if>
+                    </div>
+                    <a href="${hpath}/basket/basketList.do" class="button is-light">
                             장바구니
                             <span id="cart-count" class="cart-count">0</span>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

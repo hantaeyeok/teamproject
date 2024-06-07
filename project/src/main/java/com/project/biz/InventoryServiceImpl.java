@@ -38,5 +38,11 @@ public class InventoryServiceImpl implements InventoryService {
     public void delInventory(int ino) {
     	inventoryDAO.delInventory(ino);
     }
+
+	@Override
+	public Inventory getInventoryPno(int pno) {
+		return inventoryDAO.getInventoryPno(pno);
+	}
 	
+    
 }

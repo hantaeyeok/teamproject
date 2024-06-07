@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BasketItem {
 	private Product product;
-	private int quantity;
+	private Inventory inventory;
+	private int quantity; 
 }

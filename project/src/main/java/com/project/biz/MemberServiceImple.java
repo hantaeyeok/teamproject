@@ -24,8 +24,18 @@ public class MemberServiceImple implements MemberService{
 	}
 
 	@Override
-	public Member getMember(String id) {
-		return memberDAO.getMember(id);
+	public Member getIdMember(String id) {
+		return memberDAO.getIdMember(id);
+	}
+	
+	@Override
+	public Member getMcodeMember(int mcode) {
+		return memberDAO.getMcodeMember(mcode);
+	}
+	
+	@Override
+	public Member getAbleMember(String able) {
+		return memberDAO.getAbleMember(able);
 	}
 
 	@Override
@@ -39,10 +49,25 @@ public class MemberServiceImple implements MemberService{
 
 	@Override
 	public void upMember(Member member) {
-        //비밀번호 암호화
+		memberDAO.upMember(member);
+	}
+	
+	@Override
+	public void upPw(Member member) {
+		//비밀번호 암호화
 		String hashedPassword = passwordEncoder.encode(member.getPw());
 		member.setPw(hashedPassword);
-		memberDAO.upMember(member);
+		memberDAO.upPw(member);
+	}
+	
+	@Override
+	public void upMcode(Member member) {
+		memberDAO.upMcode(member);
+	}
+	
+	@Override
+	public void upAble(Member member) {
+		memberDAO.upAble(member);
 	}
 
 	@Override

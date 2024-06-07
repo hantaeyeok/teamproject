@@ -3,50 +3,68 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-    <!-- Get all members -->
+    <!-- 전체 회원 조회 -->
     <select id="getMemberList" resultType="com.project.domain.Member">
-        SELECT * FROM member
+        select * from member order by no desc
     </select>
 
-    <!-- Get specific member by ID -->
-    <select id="getMember" parameterType="String" resultType="com.project.domain.Member">
-        SELECT id, pw, name, email, tel, postcode, addr, birth, regdate, level, report, caution, able 
-        FROM member 
-        WHERE id = #{id}
+    <!-- 특정 회원 조회1 : id -->
+    <select id="getIdMember" parameterType="String" resultType="com.project.domain.Member">
+        select * from member where id = #{id}
+    </select>
+    
+    <!-- 특정 회원 조회2 : mcode -->
+    <select id="getMcodeMember" parameterType="String" resultType="com.project.domain.Member">
+        select * from member where mcode = #{mcode}
+    </select>
+    
+    <!-- 특정 회원 조회3 : 이용정지 회원조회 -->
+    <select id="getAbleMember" parameterType="String" resultType="com.project.domain.Member">
+        select * from member where able = 'FALSE'
     </select>
 
-    <!-- Insert a new member -->
+    <!-- 회원 등록 -->
     <insert id="insMember" parameterType="com.project.domain.Member">
-        INSERT INTO member (id, pw, name, email, tel, postcode, addr, birth, level, report, caution, able)
-        VALUES (#{id}, #{pw}, #{name}, #{email}, #{tel}, #{postcode}, #{addr}, #{birth}, #{level}, #{report}, #{caution}, #{able})
+        insert into member values (default, #{id}, #{pw}, #{name}, #{email}, #{tel}, #{postcode}, 
+        #{addr1}, #{addr2}, #{birth}, default, default, default, default, 
+        default, default, default, default, default, default)
     </insert>
 
-    <!-- Update an existing member -->
+    <!-- 회원정보 수정 -->
     <update id="upMember" parameterType="com.project.domain.Member">
-        UPDATE member SET 
-            pw = #{pw}, 
+        update member set 
             name = #{name}, 
             email = #{email}, 
             tel = #{tel}, 
             postcode = #{postcode}, 
-            addr = #{addr}, 
-            birth = #{birth}, 
-            level = #{level}, 
-            report = #{report}, 
-            caution = #{caution}, 
-            able = #{able}
-        WHERE id = #{id}
+            addr1 = #{addr1},
+            addr2 = #{addr2},
+            payment= #{payment}
+        where id = #{id}
+    </update>
+    
+    <!-- 비밀번호만 변경 -->
+    <update id="upPw">
+    	update member set pw=#{pw} where id=#{id}
+    </update>
+    
+    <!-- 관리자 전용 : 관리자 권한 부여 -->
+    <update id="upMcode">
+	    update member set mcode=1 where id=#{id}
+    </update>
+    
+    <!-- 관리자 전용 : 이용정지 해제 -->
+    <update id="upAble">
+	    update member set caution=0, stopperiod=0, able='TRUE', stopstart=null, stopend=null, sumcaution=#{sumcaution}-1 where id=#{id}
     </update>
 
-    <!-- Delete a member by ID -->
+    <!-- 회원탈퇴 -->
     <delete id="delMember" parameterType="String">
-        DELETE FROM member WHERE id = #{id}
+        delete from member where id = #{id}
     </delete>
 
     <!-- Check if an ID exists -->
     <select id="idCheck" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM member WHERE id = #{id}
+        select count(*) from member WHERE id = #{id}
     </select>
 </mapper>
-
-     

@@ -38,6 +38,11 @@ public class InventoryDAOImpl implements InventoryDAO{
 	public void delInventory(int ino) {
 		sqlSession.delete("inventory.delInventory",ino);
 	}
+
+	@Override
+	public Inventory getInventoryPno(int pno) {
+		return sqlSession.selectOne("inventory.getInventoryPno", pno);
+	}
 	
 	
 }

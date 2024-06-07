@@ -2,113 +2,130 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+<c:set var="path2" value="${pageContext.servletContext.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>구매하기</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style>
-        #tb1 tr td, #tb1 tr th { line-height:48px; padding-top:0px; }
-        #tb1 tr td div { line-height:48px; margin-top:10px; }
-        #tb1 tr td div input { height:42px; margin-top:5px; }
-    </style>
+	<title>결제하기</title>
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 <div class="full-wrap">
-    <header id="hd">
-        <div class="container">
-            <jsp:include page="../include/header.jsp"></jsp:include>
-        </div>
-    </header>
     <main id="contents" class="contents">
-        <div id="breadcrumb" class="container breadcrumb-wrap clr-fix" style="height:60px; line-height:60px;">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
-                <ul>
-                    <li><a href="${path}">Home</a></li>
-                    <li><a href="${path}/product/listAll.do">상품</a></li>
-                    <li class="is-active"><a href="#" aria-current="page">구매</a></li>
-                </ul>
-            </nav>
-        </div>
-        <section class="page" id="page1">
-            <h2 class="page-title">상품 구매</h2>
-            <div class="page-wrap">
-                <div class="clr-fix">
-                    <br>
-                    <form action="${path}/sales/insSales.do" method="post">
-                        <table class="table" id="tb1">
-                            <thead>
-                                <tr>
-                                    <th>이미지</th>
-                                    <th>제품명</th>
-                                    <th>수량</th>
-                                    <th>단가</th>
-                                    <th>총 가격</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="item" items="${basket}">
-                                    <tr>
-                                        <td><img src="${path}/resources/upload/${item.product.img1}" style="width:100px; height:100px;"/></td>
-                                        <td>${item.product.pname}</td>
-                                        <td>${item.quantity}</td>
-                                        <td><fmt:formatNumber value="${item.product.price}" type="currency"/></td>
-                                        <td><fmt:formatNumber value="${item.product.price * item.quantity}" type="currency"/></td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                        <div class="field">
-                            <label class="label">배송 정보</label>
-                            <div class="control">
-                                <label>주문자: </label>
-                                <strong>${member.name}</strong>
-                                <br>
-                                <label>수신자</label>
-                                <input type="text" name="rname" id="rname" class="input" value="${member.name}" required>
-                                <br>
-                                <label>우편번호</label>
-                                <input type="text" name="postcode" id="postcode" class="input" value="${member.postcode}" required>
-                                <br>
-                                <button type="button" id="isAddrBtn" class="button is-link" onclick="findAddr()">주소 입력</button>
-                                <input type="hidden" name="addr" id="addr" value="${member.addr1}"/>
-                                <br>
-                                <label>기본 주소</label>
-                                <input type="text" name="addr1" id="addr1" class="input" value="${member.addr1}" required>
-                                <br>
-                                <label>상세 주소</label>
-                                <input type="text" name="addr2" id="addr2" class="input" value="${member.addr2}" required>
-                                <br>
-                                <label>연락처</label>
-                                <input type="tel" name="tel" id="tel" class="input" value="${member.tel}" required>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="field">
-                            <label class="label">결제 정보</label>
-                            <div class="control">
-                                <input type="hidden" name="paymethod" id="paymethod" />
-                                <input type="hidden" name="paynum" id="paynum" />
-                                <input type="hidden" name="gtid" id="gtid" value="${gtid}" />
-                                <input type="hidden" name="impUid" id="impUid" value="${code}" />
-                                <input type="hidden" name="merchantUid" id="merchantUid" />
-                                <button type="button" id="payBtn" class="button is-danger">결제</button>
-                                <div id="msg"></div>
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <button type="submit" class="button is-danger" id="salesBtn">구매</button>
-                            <a href="${path}/product/listAll.do" class="button is-primary">상품 목록으로</a>
-                        </div>
-                    </form>
-                    
-                   <script>
+    	<h2 class="page-title">상품 구매</h2>
+    	<hr>
+   		<div class="page-wrap">
+    		<div class="clr-fix">
+    			<br>
+				<form action="${path2 }/payments/create" method="post">
+					<table class="table" id="tb1">
+						<tbody>
+							<tr>
+								<th><h3>제품 정보</h3></th>
+								<td>
+									<div class="item_fr">
+										<input type="hidden" name="pno" id="pno" value="${pno }" />
+										<input type="hidden" id="name" value="${cus.name }" />
+										<input type="hidden" id="pname" value="${pname }" /> 
+										<input type="hidden" name="userId" id="id" value="${cid }" />
+										<input type="hidden" id="email" value="${cus.email }" />
+										<input type="hidden" id="custel" value="${cus.tel }" />
+										<input type="hidden" id="cusaddr" value="${cus.addr1 }" />
+										<input type="hidden" id="cusaddr2" value="${cus.addr2 }" />
+										<input type="hidden" id="cuspostcode" value="${cus.postcode }" />
+										<input type="hidden" name="gtid" id="gtid" />
+										<input type="hidden" name="paymentId" id="paymentId" value="${paymentId }" />
+										<input type="hidden" name="status" id="status" value="before" />
+										<input type="hidden" name="impUid" id="impUid" value="${code}" />
+										<input type="hidden" name="merchantUid" id="merchantUid" />
+										<h4>제품명 : ${pname }</h4>
+										<br>
+										<h4>제품 설명</h4>
+										<p>${com }</p>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th><h3>구매 정보</h3></th>
+								<td>
+									<div class="item_fr">
+										<strong>단가 </strong> : 
+										<input type="number" id="price" value="${oprice }" class="input" style="display:inline-block; width:85%;" readonly /><br>
+										<strong>수량 </strong> : 
+										<c:if test="${cnt gt 0}">
+											<input type="number" name="cnt" id="cnt" min="1" max="${cnt }" step="1" class="input" style="display:inline-block; width:85%;" required />
+										</c:if>
+										<c:if test="${(cnt eq 0) or (cnt lt 1)}">
+											<strong style="color:red">품절</strong>
+										</c:if>
+										<br>
+									</div>
+								</td>
+							</tr>
+							<c:if test="${cnt gt 0}">
+							<tr class="change_item">
+								<th><h3>결제 정보</h3></th>
+								<td>
+									<div class="item_fr">
+										<strong>결제할 금액</strong> : 
+										<input type="number" name="amount" id="amount" class="input" style="display:inline-block; width:85%;" required />											
+									</div>
+									<div class="item_fr">
+										<strong>결제 버튼을 누르세요</strong>
+										<input type="hidden" name="paymethod" id="paymethod" />
+										<input type="hidden" name="paynum" id="paynum" />
+										<input type="hidden" name="gtid" id="gtid" />
+									</div>
+									<button type="button" id="payBtn" class="button is-danger">결제</button>
+									<br>
+									<div id="msg">
+										
+										
+									</div>
+								</td>
+							</tr>
+							</c:if>
+							<c:if test="${amount gt 0}">
+							<tr class="result_item">
+								<th><h3>배송 정보</h3></th>
+								<td>
+									<div class="item_fr">
+										<strong>주문자</strong> :
+										<strong>${cus.name }</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+										<input type="checkbox" id="ck2">
+										<label for="ck2">주문자와 수신자가 동일합니다.</label>											
+									</div>
+									<div class="item_fr">
+										<strong>수신자</strong> :
+										<input type="text" name="rname" id="rname" class="input" required /> 											
+									</div>
+									<div class="item_fr">
+										<h4>배송지</h4>
+										<hr>
+										<strong>기본 주소</strong> : <input type="text" name="addr1" id="addr1" class="input" style="display:inline-block; width:85%;" required><br> 
+										<strong>상세 주소</strong> : <input type="text" name="addr2" id="addr2" class="input" style="display:inline-block; width:85%;" required><br>
+										<strong>상세 주소</strong> : <input type="text" name="postcode" id="postcode" class="input" style="display:inline-block; width:85%;" required><br><br>
+										<input type="button" id="isAddrBtn" class="button is-link" value="주소 입력" onclick="findAddr()">
+										<input type="hidden" name="addr" id="addr" />											
+									</div>
+									<div class="item_fr">
+										<strong>연락처</strong> :
+										<input type="tel" name="tel" id="tel" class="input" required><br> 
+									</div>
+								</td>
+							</tr>
+							</c:if>
+						</tbody>
+					</table>
+					<hr>
+					<div class="buttons">
+					  <button type="submit" class="button is-danger" id="salesBtn">구매</button>
+					</div>
+				</form>
+	            <script>
                 function findAddr() {
                     new daum.Postcode({
                         oncomplete: function(data) {
@@ -129,7 +146,6 @@
             	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 				
 				<!-- 결제 API -->
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 				<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 				<script>
 				$(document).ready(function(){
@@ -265,9 +281,7 @@
 				        
 				});
 				</script>
-			<!-- 
 				<script>
-			
 				$(document).ready(function(){
 				    // #ck2 checkbox가 클릭되었을 때
 				    $("#ck2").click(function(){
@@ -292,14 +306,9 @@
 				    });
 				});
 				</script>
-				 -->
-                </div>
-            </div>
-        </section>
+			</div>
+   		</div>
     </main>
-    <footer id="ft">
-        <jsp:include page="../include/footer.jsp"></jsp:include>
-    </footer>
-</div>
+</div>    
 </body>
 </html>
